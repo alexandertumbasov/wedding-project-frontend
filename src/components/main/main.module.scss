@@ -1,0 +1,17 @@
+.main {
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  .bottom {
+    position: absolute;
+    bottom: 15px;
+    transform: scale(1.3);
+    svg {
+      width: 250px;
+      max-width: 300px;
+      max-height: 400px;
+    }
+  }
+}
