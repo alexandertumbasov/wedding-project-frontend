@@ -1,23 +1,39 @@
-import React, { useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import styles from './main.module.scss';
-import bottomFlowers from '../__mocks__/bottom-flowers';
+import { FlowersConfig } from '../../models/flowers-config.interface';
 
-const Main = () => {
+interface Props {
+  config: FlowersConfig[];
+  content: {
+    date: string;
+    message: string;
+    title: string;
+    address: string;
+  };
+}
+
+const Main: FC<Props> = ({ config, content: { date, message, title, address } }) => {
   const calculateWidth = useCallback((i: number, length: number): string | number => {
-    const calculateItemLength = (index: number) => index * ((window.innerWidth - 200) / bottomFlowers.length);
+    const calculateItemLength = (index: number) => index * ((window.innerWidth - 200) / length);
     const temp = calculateItemLength(i + 1);
     return temp - (temp - calculateItemLength(i)) / 2;
   }, []);
 
   return (
     <div className={styles.main}>
-      {bottomFlowers.map((Image, index) => {
-        return (
-          <span className={`${styles.bottom}`} style={{ left: calculateWidth(index, bottomFlowers.length) }} key={index}>
+      {config.map(({ name, data, stylePoint, actualLength }) =>
+        data.map((Image, index) => (
+          <span className={styles[name]} style={{ [stylePoint]: calculateWidth(index, actualLength || data.length) }} key={index}>
             <Image />
           </span>
-        );
-      })}
+        )),
+      )}
+      <span className={styles.date}>{date}</span>
+      <span className={styles.message}>{message}</span>
+      <p className={styles.title}>
+        <span>{title}</span>
+      </p>
+      <span className={styles.address}>{address}</span>
     </div>
   );
 };
