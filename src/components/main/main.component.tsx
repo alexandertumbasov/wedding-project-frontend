@@ -15,7 +15,7 @@ interface Props {
   badButtonCallback: () => void;
 }
 
-const Main: FC<Props> = ({ config, content: { date, message, title, address } }) => {
+const Main: FC<Props> = ({ config, content: { date, message, title, address }, goodButtonCallback, badButtonCallback }) => {
   const calculateWidth = useCallback((i: number, length: number): string | number => {
     const calculateItemLength = (index: number) => index * ((window.innerWidth - 200) / length);
     const temp = calculateItemLength(i + 1);
@@ -38,8 +38,8 @@ const Main: FC<Props> = ({ config, content: { date, message, title, address } })
       </p>
       <span className={styles.address}>{address}</span>
       <div className={styles.buttons}>
-        <Button title="Приеду" onClick={() => null} isActive className={styles.button} />
-        <Button title="К сожалению не смогу быть" onClick={() => null} />
+        <Button title="Приеду" onClick={goodButtonCallback} isActive className={styles.button} />
+        <Button title="К сожалению не смогу быть" onClick={badButtonCallback} />
       </div>
     </div>
   );

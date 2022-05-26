@@ -2,13 +2,27 @@ import React, { useState } from 'react';
 
 import Main from '../main/main.component';
 import flowersConfig from '../__mocks__/flowers-config';
+import Modal from '../modal/modal.component';
 
 const App = () => {
-  const [isInviteModalDisplayed, setIsInvitedModalDisplayed] = useState<'good' | 'bad'>();
+  const [isInviteModalDisplayed, setIsInvitedModalDisplayed] = useState<boolean>(false);
+  const [guestStatus, setGuestStatus] = useState<'good' | 'bad'>();
 
-  const openGoodModal = () => setIsInvitedModalDisplayed('good');
-  const openBadModal = () => setIsInvitedModalDisplayed('bad');
+  const openGoodModal = () => {
+    setIsInvitedModalDisplayed(true);
+    setGuestStatus('good');
+  };
+  const openBadModal = () => {
+    setIsInvitedModalDisplayed(true);
+    setGuestStatus('bad');
+  };
 
+  const closeModal = () => {
+    setGuestStatus(undefined);
+    setIsInvitedModalDisplayed(false);
+  };
+
+  console.log(isInviteModalDisplayed);
   return (
     <div>
       <Main
@@ -22,6 +36,7 @@ const App = () => {
         goodButtonCallback={openGoodModal}
         badButtonCallback={openBadModal}
       />
+      {isInviteModalDisplayed && <Modal isOpen={isInviteModalDisplayed} closeModal={closeModal} />}
     </div>
   );
 };

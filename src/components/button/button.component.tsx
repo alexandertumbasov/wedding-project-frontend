@@ -8,8 +8,12 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: FC<ButtonProps> = ({ title, isActive = false, className }) => {
-  return <button className={`${styles.button} ${isActive ? styles.active : ''} ${className || ''}`}>{title}</button>;
+const Button: FC<ButtonProps> = ({ title, isActive = false, className, onClick }) => {
+  return (
+    <button onClick={onClick} className={`${styles.button} ${isActive ? styles.active : ''} ${className || ''}`}>
+      {title}
+    </button>
+  );
 };
 
 export default Button;
